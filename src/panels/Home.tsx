@@ -1,7 +1,15 @@
 import React, {CSSProperties, FC} from 'react';
 import {View, Panel, Gallery, PanelHeader, Group, CardGrid, Header, Button, useAppearance} from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
-import { Icon28PlaneOutline, Icon28CompassOutline, Icon28Place, Icon28Attachments, Icon28Story, Icon28Clock} from '@vkontakte/icons';
+import {
+    Icon28PlaneOutline,
+    Icon28CompassOutline,
+    Icon28Place,
+    Icon28Attachments,
+    Icon28Story,
+    Icon28Clock
+} from '@vkontakte/icons';
+import {BOTTOM_PADDING_GLOBAL} from "../globalVars";
 
 const imageStyleInCard = {
     width: '100%',
@@ -10,9 +18,9 @@ const imageStyleInCard = {
 };
 
 
-const Slide = ({ imageUrl }:{imageUrl:string}) => (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
-        {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
+const Slide = ({imageUrl}: { imageUrl: string }) => (
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
+        {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties}/> : null}
     </div>
 );
 
@@ -32,7 +40,7 @@ const IconStyle = {
     transform: 'scale(1.5)',
 };
 
-const ShadowBlock = ({ icon }:{icon:any}) => {
+const ShadowBlock = ({icon}: { icon: any }) => {
 
     const appearance = useAppearance();
 
@@ -51,7 +59,7 @@ const ShadowBlock = ({ icon }:{icon:any}) => {
 
     return (
         <div style={shadowBlockStyle}>
-            {React.cloneElement(icon, { style: IconStyle })}
+            {React.cloneElement(icon, {style: IconStyle})}
         </div>
     );
 }
@@ -62,12 +70,12 @@ const verticalCardGridStyle = {
     alignItems: 'center',
 };
 const icons = [
-    <Icon28PlaneOutline />,
-    <Icon28CompassOutline />,
-    <Icon28Place />,
-    <Icon28Attachments />,
-    <Icon28Story />,
-    <Icon28Clock />,
+    <Icon28PlaneOutline/>,
+    <Icon28CompassOutline/>,
+    <Icon28Place/>,
+    <Icon28Attachments/>,
+    <Icon28Story/>,
+    <Icon28Clock/>,
 ];
 const cardGridContainerStyle = {
     display: 'flex',
@@ -80,9 +88,9 @@ const mainContentStyle = {
 };
 
 
-const ImageCard = ({ imageUrl }:{imageUrl:string}) => (
+const ImageCard = ({imageUrl}: { imageUrl: string }) => (
     <div style={imageCardStyle}>
-        {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
+        {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties}/> : null}
     </div>
 );
 const imageCardStyle = {
@@ -101,13 +109,12 @@ const customGalleryStyles = {
 };
 
 interface IProps {
-    id:string,
-    setActivePanel: React.Dispatch<React.SetStateAction<string>>
+    id: string,
 }
-const Home:FC<IProps> = ({
-                                id,
-                                setActivePanel
-                            }) => {
+
+const Home: FC<IProps> = ({
+                              id,
+                          }) => {
     const imageUrls = [
         "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
         "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
@@ -126,41 +133,43 @@ const Home:FC<IProps> = ({
     };
 
     return (
-        <Panel id={id}>
+        <Panel id={id} style={{paddingBottom:BOTTOM_PADDING_GLOBAL}}>
             <PanelHeader>Главная</PanelHeader>
 
-            <Group >
+            <Group>
                 <Gallery slideWidth="90%" bullets="dark" style={customGalleryStyles}>
-                    <Slide imageUrl="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663155867_60-mykaleidoscope-ru-p-yezhik-veselii-krasivo-61.jpg" />
-                    <Slide imageUrl="https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg" />
-                    <Slide imageUrl="https://uprostim.com/wp-content/uploads/2021/02/image004-49.jpg" />
+                    <Slide
+                        imageUrl="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663155867_60-mykaleidoscope-ru-p-yezhik-veselii-krasivo-61.jpg"/>
+                    <Slide imageUrl="https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg"/>
+                    <Slide imageUrl="https://uprostim.com/wp-content/uploads/2021/02/image004-49.jpg"/>
                 </Gallery>
             </Group>
             <Group mode="plain" style={mainContentStyle}>
-                <CardGrid size="m" style={{ ...cardGridContainerStyle, display: 'flex', flexWrap: 'wrap' }}>
+                <CardGrid size="m" style={{...cardGridContainerStyle, display: 'flex', flexWrap: 'wrap'}}>
                     {[...Array(6)].map((_, index) => (
                         <Button
                             key={index}
                             style={buttonStyle}
-                            onClick={() => { /*код обработки нажатия */ }}
+                            onClick={() => { /*код обработки нажатия */
+                            }}
                         >
-                            <ShadowBlock icon={icons[index % icons.length]} />
+                            <ShadowBlock icon={icons[index % icons.length]}/>
                         </Button>
                     ))}
                 </CardGrid>
 
-                <Header mode="secondary" style={{ fontSize: '25px' }}>Актуальные события</Header>
+                <Header mode="secondary" style={{fontSize: '25px'}}>Актуальные события</Header>
 
                 <CardGrid size="m" style={verticalCardGridStyle as CSSProperties}>
                     {imageUrls.map((url, index) => (
-                        <ImageCard key={index} imageUrl={url} />
+                        <ImageCard key={index} imageUrl={url}/>
                     ))}
                 </CardGrid>
-                <Header mode="secondary" style={{ fontSize: '25px' }}>Маршруты друзей</Header>
+                <Header mode="secondary" style={{fontSize: '25px'}}>Маршруты друзей</Header>
 
                 <CardGrid size="m" style={verticalCardGridStyle as CSSProperties}>
                     {imageUrls.map((url, index) => (
-                        <ImageCard key={index} imageUrl={url} />
+                        <ImageCard key={index} imageUrl={url}/>
                     ))}
                 </CardGrid>
             </Group>

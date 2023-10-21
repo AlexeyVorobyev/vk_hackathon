@@ -22,10 +22,19 @@ import {useGetAndSendConfig} from "./utils/useGetAndSendConfig";
 import AchievementsPage from "./panels/Achievements";
 import Achievements from "./panels/Achievements";
 import {useLocation} from "@happysanta/router";
-import {PANEL_ACHIEVEMENTS, PANEL_HOME, PANEL_MAP, PANEL_USERPROFILE, VIEW_HOME} from "./index";
+import {
+	PANEL_ACHIEVEMENTS,
+	PANEL_CARDS,
+	PANEL_HOME,
+	PANEL_MAP,
+	PANEL_SHOP,
+	PANEL_USERPROFILE,
+	VIEW_HOME
+} from "./index";
+import Shop from "./panels/Shop";
+import Cards from "./panels/Cards";
 
 const App = () => {
-	const [activePanel, setActivePanel] = useState<string>('home');
 	const user = useSelector((state:RootState) => state.user)
 
 	useAppVkConnection()
@@ -39,16 +48,16 @@ const App = () => {
 				<AdaptivityProvider>
 					<AppRoot>
 						<SplitLayout popout={user.loaded && user.is_auth ? undefined : <ScreenSpinner size='large' />}>
-							<SplitCol>
-								<View id={VIEW_HOME} activePanel={location.getViewActivePanel(VIEW_HOME)!}>
-									<UserProfile id={PANEL_USERPROFILE} setActivePanel={setActivePanel}/>
-									<Map id={PANEL_MAP} setActivePanel={setActivePanel} />
-									<Home id={PANEL_HOME} setActivePanel={setActivePanel}/>
-									<Achievements id={PANEL_ACHIEVEMENTS} setActivePanel={setActivePanel}/>
-								</View>
-							</SplitCol>
+							<View id={VIEW_HOME} activePanel={location.getViewActivePanel(VIEW_HOME)!}>
+								<UserProfile id={PANEL_USERPROFILE}/>
+								<Map id={PANEL_MAP}/>
+								<Home id={PANEL_HOME}/>
+								<Achievements id={PANEL_ACHIEVEMENTS}/>
+								<Shop id={PANEL_SHOP}/>
+								<Cards id={PANEL_CARDS}/>
+							</View>
 							<FixedLayout vertical="bottom">
-								<BottomNavigation setActivePanel={setActivePanel}/>
+								<BottomNavigation/>
 							</FixedLayout>
 						</SplitLayout>
 					</AppRoot>

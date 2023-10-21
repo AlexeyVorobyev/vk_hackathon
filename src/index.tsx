@@ -9,19 +9,27 @@ export const PAGE_HOME = '/';
 export const PAGE_ACHIEVEMENTS = '/achievements'
 export const PAGE_MAP = '/map'
 export const PAGE_USERPROFILE = '/userprofile'
+export const PAGE_SHOP = '/shop'
+export const PAGE_CARDS = '/cards'
+
 
 export const PANEL_HOME = 'panel_home';
 export const PANEL_ACHIEVEMENTS = '/panel_achievements'
 export const PANEL_MAP = '/panel_map'
 export const PANEL_USERPROFILE = '/panel_userprofile'
+export const PANEL_SHOP = '/panel_shop'
+export const PANEL_CARDS = '/panel_cards'
+
 export const VIEW_HOME = '/view_home';
 
 
 const routes = {
-  [PAGE_HOME]: new Page(PANEL_HOME,VIEW_HOME),
-  [PAGE_ACHIEVEMENTS]: new Page(PANEL_ACHIEVEMENTS,VIEW_HOME),
-  [PAGE_MAP]: new Page(PANEL_MAP,VIEW_HOME),
-  [PAGE_USERPROFILE]: new Page(PANEL_USERPROFILE,VIEW_HOME)
+    [PAGE_HOME]: new Page(PANEL_HOME, VIEW_HOME),
+    [PAGE_ACHIEVEMENTS]: new Page(PANEL_ACHIEVEMENTS, VIEW_HOME),
+    [PAGE_MAP]: new Page(PANEL_MAP, VIEW_HOME),
+    [PAGE_USERPROFILE]: new Page(PANEL_USERPROFILE, VIEW_HOME),
+    [PAGE_SHOP]: new Page(PANEL_SHOP, VIEW_HOME),
+    [PAGE_CARDS]: new Page(PANEL_CARDS, VIEW_HOME)
 }
 
 const router = new Router(routes)
@@ -29,10 +37,11 @@ const router = new Router(routes)
 
 ReactDOM.render(
     <Provider store={store}>
-      <RouterContext.Provider value={router}>
-        <App />
-      </RouterContext.Provider>
+        <RouterContext.Provider value={router}>
+            <App/>
+        </RouterContext.Provider>
     </Provider>, document.getElementById("root"));
 if (process.env.NODE_ENV === "development") {
-  import("./eruda").then(({ default: eruda }) => {}); //runtime download
+    import("./eruda").then(({default: eruda}) => {
+    }); //runtime download
 }

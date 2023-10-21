@@ -14,42 +14,50 @@ export const PANEL_MAP = '/panel_map'
 export const PANEL_USERPROFILE = '/panel_userprofile'
 export const VIEW_HOME = '/view_home';
 
-const selectedButtonStyle = {
-    width: '45px',
-    height: '45px',
-    borderRadius: '10px',
-};
+const icons = [Icon24Home, Icon28CarOutline, Icon28Users, Icon24User];
+const iconLinks = [PAGE_HOME,PAGE_MAP,PAGE_HOME,PAGE_USERPROFILE]
 
-const notSelectedButtonStyle = {
-    width: '45px',
-    height: '45px',
-    borderRadius: '10px',
-};
 
-const selectedIconStyle = {
-    color: '#287EDA',
-};
-
-const icons = [<Icon24Home/>, <Icon28CarOutline/>, <Icon28Users/>, <Icon24User/>];
-const iconLinks = [PAGE_HOME,PAGE_MAP,'',PAGE_USERPROFILE]
-
-interface IProps {
-    setActivePanel: React.Dispatch<React.SetStateAction<string>>
-}
-
-const BottomNavigation:FC<IProps> = ({
-                                        setActivePanel
-                                     }) => {
+const BottomNavigation:FC = () => {
     const [selectedButton, setSelectedButton] = useState(0);
     const appearance = useAppearance();
 
     const bottomNavStyle = {
         display: 'flex',
-        justifyContent: 'space-around',
-        borderTop: '1px solid #e7e7e7',
-        background: appearance === 'light' ? "#FFF" : "#000",
-        padding: '8px 0',
+        justifyContent: 'space-between',
+        alignItems:'center',
+        background: appearance === 'light' ? "#BBE5FF" : "#444",
+        padding: '20px 52px 20px 52px',
+        borderRadius: '37px 37px 0 0'
     };
+
+    const selectedButtonStyle = {
+        borderRadius: '10px',
+        width:'45px',
+        height:'45px',
+        background: appearance === 'light' ? "#FFF" : "#FFF",
+    };
+
+    const notSelectedButtonStyle = {
+        width:'45px',
+        height:'45px',
+        flexShrink:0,
+        boxSizing:'border-box',
+        borderRadius: '10px',
+    } as CSSProperties;
+
+    const selectedIconStyle = {
+        padding:'0',
+        width:"20px",
+        height:'20px',
+        color: appearance === 'light' ? "#35A0E7" : "#000",
+    };
+
+    const iconStyle = {
+        padding:'0',
+        width:"20px",
+        height:'20px'
+    } as CSSProperties;
 
     const router = useRouter()
 
@@ -63,8 +71,8 @@ const BottomNavigation:FC<IProps> = ({
                         setSelectedButton(index)
                         router.pushPage(iconLinks[index])
                     }}
+                    before={<IconElement style={index === selectedButton ? selectedIconStyle as CSSProperties : undefined }/>}
                 >
-                    {React.cloneElement(IconElement, { style: index === selectedButton ? selectedIconStyle as CSSProperties : undefined })}
                 </Button>
             ))}
         </div>
