@@ -14,6 +14,7 @@
     "keywords": [],
     "license": "MIT",
     "dependencies": {
+        "@reduxjs/toolkit": "^1.9.5",
         "@vkontakte/create-vk-mini-app": "^1.10.0",
         "@vkontakte/icons": "2.7.0",
         "@vkontakte/vk-bridge": "latest",
@@ -23,22 +24,22 @@
         "eruda": "^2.4.1",
         "eruda-code": "^2.0.0",
         "eruda-dom": "^2.0.0",
+        "mmr-gl": "^0.1.372",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-redux": "^8.1.3",
-        "redux-toolkit": "^1.1.2",
-        "@reduxjs/toolkit": "^1.9.5"
+        "redux-toolkit": "^1.1.2"
     },
     "devDependencies": {
+        "@types/react": "^18.2.18",
+        "@types/react-dom": "^18.2.7",
+        "@typescript-eslint/eslint-plugin": "^4.33.0",
+        "@typescript-eslint/parser": "^4.33.0",
         "cross-env": "^7.0.3",
         "react-hot-loader": "^4.13.0",
         "react-scripts": "^5.0.1",
-        "typescript": "^4.4.4",
-        "@typescript-eslint/eslint-plugin": "^4.33.0",
-        "@typescript-eslint/parser": "^4.33.0",
-        "@types/react": "^18.2.18",
-        "@types/react-dom": "^18.2.7"
+        "typescript": "^4.4.4"
     },
     "resolutions": {
         "react-scripts/webpack-dev-server/yargs/yargs-parser": ">=18.1.2"

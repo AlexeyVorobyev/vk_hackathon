@@ -25,8 +25,8 @@ const Home:FC<any> = ({ id, go}) => {
 
 			<Group header={<Header mode="secondary">Navigation Example</Header>}>
 				<Div>
-					<Button stretched size="l" mode="secondary" onClick={go} data-to="persik">
-						Show me the Persik, please
+					<Button stretched size="l" mode="secondary" onClick={go} data-to="map">
+						ToMap test
 					</Button>
 				</Div>
 			</Group>
