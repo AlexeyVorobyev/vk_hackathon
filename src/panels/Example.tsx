@@ -1,19 +1,9 @@
-import React, {CSSProperties, FC} from 'react';
+import React, {CSSProperties, FC, useState} from 'react';
 import { View, Panel, Gallery, PanelHeader, Group, CardGrid, Header, Button } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
-import {  Icon28PlaneOutline, Icon24Home,Icon28CompassOutline,  Icon28Place, Icon28Attachments, Icon28Story,Icon28Clock} from '@vkontakte/icons';
+import { Icon28PlaneOutline, Icon24Home, Icon28CompassOutline, Icon24User, Icon28Place, Icon28Attachments, Icon28Story, Icon28Clock, Icon28CarOutline, Icon28Users } from '@vkontakte/icons';
 import { FixedLayout } from '@vkontakte/vkui';
 
-const slideStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '314px',
-    height: '169px',
-    flexShrink: 0,
-    borderRadius: '10px',
-    overflow: 'hidden',
-};
 const bottomNavStyle = {
     display: 'flex',
     justifyContent: 'space-around',
@@ -22,14 +12,8 @@ const bottomNavStyle = {
     padding: '8px 0',
 };
 
-
-const Slide = ({ imageUrl }:{imageUrl:string}) => (
-    <div style={slideStyle}>
-        {imageUrl ? <img src={imageUrl} alt="" style={{ width: '100%', height: 'auto' }} /> : null}
-    </div>
-);
 const BottomNavigation = () => {
-    const [selectedButton, setSelectedButton] = React.useState(0);
+    const [selectedButton, setSelectedButton] = useState(0);
 
     const selectedButtonStyle = {
         width: '45px',
@@ -49,22 +33,35 @@ const BottomNavigation = () => {
         color: '#287EDA',
     };
 
+    const icons = [Icon24Home, Icon28CarOutline, Icon28Users, Icon24User];
+
     return (
         <div style={bottomNavStyle}>
-            {[0, 1, 2, 3].map((index) => (
+            {icons.map((Icon, index) => (
                 <Button
                     key={index}
                     style={index === selectedButton ? selectedButtonStyle : notSelectedButtonStyle}
                     onClick={() => setSelectedButton(index)}
                 >
-                    <Icon24Home style={index === selectedButton ? selectedIconStyle : undefined} />
+                    <Icon style={index === selectedButton ? selectedIconStyle as CSSProperties : undefined} />
                 </Button>
             ))}
         </div>
     );
 };
 
+const imageStyleInCard = {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+};
 
+
+const Slide = ({ imageUrl }:{imageUrl:string}) => (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
+        {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
+    </div>
+);
 
 
 const shadowBlockStyle = {
@@ -77,11 +74,21 @@ const shadowBlockStyle = {
     justifyContent: 'center',
     color: '#FFFFFF',
     fontSize: '50px',
-    margin: 0
+    margin: 0,
+};
+const slideStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '314px',
+    height: '300px',
+    flexShrink: 0,
+    borderRadius: '10px',
+    overflow: 'hidden',
 };
 
 const IconStyle = {
-    transform: 'scale(1.5)'
+    transform: 'scale(1.5)',
 };
 
 const ShadowBlock = ({ icon }:{icon:any}) => (
@@ -90,9 +97,6 @@ const ShadowBlock = ({ icon }:{icon:any}) => (
     </div>
 );
 
-
-
-
 const buttonStyle = {
     margin: '5px',
     padding: 0,
@@ -100,13 +104,13 @@ const buttonStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#A4DDFF',
-    borderRadius: '10px'
+    borderRadius: '10px',
 };
 
 const verticalCardGridStyle = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
 };
 const icons = [
     <Icon28PlaneOutline />,
@@ -114,7 +118,7 @@ const icons = [
     <Icon28Place />,
     <Icon28Attachments />,
     <Icon28Story />,
-    <Icon28Clock />
+    <Icon28Clock />,
 ];
 const cardGridContainerStyle = {
     display: 'flex',
@@ -123,12 +127,6 @@ const cardGridContainerStyle = {
     alignItems: 'center',
 };
 
-
-const imageStyleInCard = {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover'
-};
 
 const ImageCard = ({ imageUrl }:{imageUrl:string}) => (
     <div style={imageCardStyle}>
@@ -142,7 +140,7 @@ const imageCardStyle = {
     borderRadius: '10px',
     boxShadow: '4px 4px 6px 0px rgba(0, 0, 0, 0.25)',
     overflow: 'hidden',
-    margin: '10px 0'
+    margin: '10px 0',
 };
 
 interface IProps {
@@ -159,49 +157,51 @@ const Example:FC<IProps> = ({
     ];
 
     return (
-        <Panel id={id}>
-            <PanelHeader>Главная</PanelHeader>
+        <View activePanel="gallery">
+            <Panel nav="gallery">
+                <PanelHeader>Главная</PanelHeader>
 
-            <Group>
-                <Gallery slideWidth="90%" bullets="dark">
-                    <Slide imageUrl="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663155867_60-mykaleidoscope-ru-p-yezhik-veselii-krasivo-61.jpg" />
-                    <Slide imageUrl="https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg" />
-                    <Slide imageUrl="https://uprostim.com/wp-content/uploads/2021/02/image004-49.jpg" />
-                </Gallery>
-            </Group>
-            <Group mode="plain">
-                <CardGrid size="m" style={{ ...cardGridContainerStyle, display: 'flex', flexWrap: 'wrap' }}>
-                    {[...Array(6)].map((_, index) => (
-                        <Button
-                            key={index}
-                            style={buttonStyle}
-                            onClick={() => { /*код обработки нажатия */ }}
-                        >
-                            <ShadowBlock icon={icons[index % icons.length]} />
-                        </Button>
-                    ))}
-                </CardGrid>
+                <Group>
+                    <Gallery slideWidth="90%" bullets="dark">
+                        <Slide imageUrl="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663155867_60-mykaleidoscope-ru-p-yezhik-veselii-krasivo-61.jpg" />
+                        <Slide imageUrl="https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg" />
+                        <Slide imageUrl="https://uprostim.com/wp-content/uploads/2021/02/image004-49.jpg" />
+                    </Gallery>
+                </Group>
+                <Group mode="plain">
+                    <CardGrid size="m" style={{ ...cardGridContainerStyle, display: 'flex', flexWrap: 'wrap' }}>
+                        {[...Array(6)].map((_, index) => (
+                            <Button
+                                key={index}
+                                style={buttonStyle}
+                                onClick={() => { /*код обработки нажатия */ }}
+                            >
+                                <ShadowBlock icon={icons[index % icons.length]} />
+                            </Button>
+                        ))}
+                    </CardGrid>
 
-                <Header mode="secondary" style={{ fontSize: '25px' }}>Актуальные события</Header>
-
-                <CardGrid size="m" style={verticalCardGridStyle as CSSProperties}>
-                    {imageUrls.map((url, index) => (
-                        <ImageCard key={index} imageUrl={url} />
-                    ))}
-                </CardGrid>
-                <Header mode="secondary" style={{ fontSize: '25px' }}>Маршруты друзей</Header>
+                    <Header mode="secondary" style={{ fontSize: '25px' }}>Актуальные события</Header>
 
                 <CardGrid size="m" style={verticalCardGridStyle as CSSProperties}>
-                    {imageUrls.map((url, index) => (
-                        <ImageCard key={index} imageUrl={url} />
-                    ))}
-                </CardGrid>
-            </Group>
-            <FixedLayout vertical="bottom">
-                <BottomNavigation />
-            </FixedLayout>
+                        {imageUrls.map((url, index) => (
+                            <ImageCard key={index} imageUrl={url} />
+                        ))}
+                    </CardGrid>
+                    <Header mode="secondary" style={{ fontSize: '25px' }}>Маршруты друзей</Header>
 
-        </Panel>
+                <CardGrid size="m" style={verticalCardGridStyle as CSSProperties}>
+                        {imageUrls.map((url, index) => (
+                            <ImageCard key={index} imageUrl={url} />
+                        ))}
+                    </CardGrid>
+                </Group>
+                <FixedLayout vertical="bottom">
+                    <BottomNavigation />
+                </FixedLayout>
+
+            </Panel>
+        </View>
     );
 };
 
