@@ -7,17 +7,16 @@ import { Panel, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
 
 interface IProps {
 	id:string
-	go:any
+	setActivePanel:any
 }
 
 const Map:FC<IProps> = ({
 							id,
-							go
+							setActivePanel
 						   }) => {
 
 	useEffect( () => {
-		mmrgl.accessToken = 'accessToken';
-		mmrgl.baseApiUrl = 'https://maps.vk.com/api';
+		mmrgl.accessToken = '25d8d6a2246d7544607224e6b41fc8019a010d3ba73f85d03ed8ffda25b97205';
 
 		const map = new mmrgl.Map({
 			container: 'map',
@@ -34,7 +33,7 @@ const Map:FC<IProps> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader before={<PanelHeaderBack onClick={go} data-to="home"/>}></PanelHeader>
+			<PanelHeader before={<PanelHeaderBack onClick={() => setActivePanel('home')}/>}></PanelHeader>
 			<div id="map" style={{ width: '100%', height: '600px'}} />
 		</Panel>
 	)

@@ -9,11 +9,11 @@ export const useGetUserInfo = () => {
     useEffect(() => {
         bridge.send('VKWebAppGetUserInfo')
             .then((response) => {
-                console.log(response)
+                console.log(response,'uesGetUserInfo')
                 setUserData(response);
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error,'uesGetUserInfo')
             })
     }, []);
 }

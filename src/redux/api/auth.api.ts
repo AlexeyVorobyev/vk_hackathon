@@ -3,6 +3,7 @@ import {
     LoginPayload,
     LoginResponse,
 } from "./types/auth";
+import {GetLaunchParamsResponse} from "@vkontakte/vk-bridge";
 export const authApi = api.injectEndpoints({
     endpoints: (builder) => ({
         // authRefresh: builder.mutation<RefreshResponse,RefreshPayload>({
@@ -15,14 +16,14 @@ export const authApi = api.injectEndpoints({
         //         body
         //     }),
         // }),
-        authLogin: builder.mutation<LoginResponse,LoginPayload>({
+        authLogin: builder.mutation<LoginResponse,GetLaunchParamsResponse>({
             query: (body) => ({
                 url:`/api/auth/login`,
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },
-                body
+                body:body
             }),
         })
     }),

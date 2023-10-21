@@ -1,6 +1,7 @@
 import {createSlice, Draft} from "@reduxjs/toolkit";
 export interface UserState {
     is_auth:boolean,
+    loaded:boolean
     id:number,
     bdate:string,
     bdate_visibility:number,
@@ -24,7 +25,7 @@ export interface UserState {
 
 export const userSlice = createSlice({
     name:'user',
-    initialState:{is_auth:false} as UserState,
+    initialState:{is_auth:true} as UserState,
     reducers: {
         setLogin: (state,{payload}:{payload:boolean}) => {
             state.is_auth = payload
@@ -35,7 +36,9 @@ export const userSlice = createSlice({
                 const key = value as keyof UserState
                 // @ts-ignore
                 state[key] = payload[key]
+                state.loaded = true
             })
+
         }
     }
 })

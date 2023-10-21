@@ -1,38 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import bridge from '@vkontakte/vk-bridge';
-import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol } from '@vkontakte/vkui';
+import React, { useState} from 'react';
+import {
+	View,
+	ScreenSpinner,
+	AdaptivityProvider,
+	AppRoot,
+	ConfigProvider,
+	SplitLayout,
+	SplitCol,
+	FixedLayout
+} from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
-import Home from './panels/Home';
 import Map from "./panels/Map";
 import {useAppVkConnection} from "./utils/useAppVkConnection";
 import {useGetUserInfo} from "./utils/useGetUserInfo";
-import {Provider, useSelector} from "react-redux";
-import {RootState, store} from "./redux/store/store";
-import Example from "./panels/Example";
+import {useSelector} from "react-redux";
+import {RootState} from "./redux/store/store";
+import Home from "./panels/Home";
+import BottomNavigation from "./components/BottomNavigation";
+import UserProfile from "./panels/UserProfile";
+import {useGetAndSendConfig} from "./utils/useGetAndSendConfig";
 
 const App = () => {
-	const [activePanel, setActivePanel] = useState<string>('gallery');
+	const [activePanel, setActivePanel] = useState<string>('home');
 	const user = useSelector((state:RootState) => state.user)
 
 	useAppVkConnection()
 	useGetUserInfo()
-
-	const go = (e:any) => {
-		setActivePanel(e.currentTarget.dataset.to);
-	};
+	// useGetAndSendConfig()
 
 	return (
 			<ConfigProvider>
 				<AdaptivityProvider>
 					<AppRoot>
-						<SplitLayout popout={user.id ? undefined : <ScreenSpinner size='large' />}>
+						<SplitLayout popout={user.loaded && user.is_auth ? undefined : <ScreenSpinner size='large' />}>
 							<SplitCol>
 								<View activePanel={activePanel}>
-									<Home id='home' go={go} />
-									{/*<Map id='map' go={go} />*/}
-									<Example id='gallery' go={go}/>
+									<UserProfile id='cabinet' setActivePanel={setActivePanel}/>
+									<Map id='map' setActivePanel={setActivePanel} />
+									<Home id='home' setActivePanel={setActivePanel}/>
 								</View>
 							</SplitCol>
+							<FixedLayout vertical="bottom">
+								<BottomNavigation setActivePanel={setActivePanel}/>
+							</FixedLayout>
 						</SplitLayout>
 					</AppRoot>
 				</AdaptivityProvider>
