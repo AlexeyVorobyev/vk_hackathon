@@ -10,7 +10,7 @@ export const useGetUserInfo = () => {
         bridge.send('VKWebAppGetUserInfo')
             .then((response) => {
                 console.log(response)
-                // setUserData(response);
+                setUserData(response);
             })
             .catch((error) => {
                 console.log(error)

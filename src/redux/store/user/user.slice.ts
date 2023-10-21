@@ -26,10 +26,11 @@ export const userSlice = createSlice({
     name:'user',
     initialState:{is_auth:false} as UserState,
     reducers: {
-        setLogin: (state:Draft<UserState>,{payload}:{payload:boolean}) => {
+        setLogin: (state,{payload}:{payload:boolean}) => {
             state.is_auth = payload
         },
-        setUserData: (state:Draft<UserState>,{payload}:{payload:UserState}) => {
+        setUserData: (state,{payload}:{payload:UserState}) => {
+            console.log(payload)
             Object.keys(payload).map((value ) => {
                 const key = value as keyof UserState
                 // @ts-ignore

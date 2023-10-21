@@ -4,15 +4,14 @@ import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, Split
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
-import Persik from './panels/Map';
 import {useAppVkConnection} from "./utils/useAppVkConnection";
 import {useGetUserInfo} from "./utils/useGetUserInfo";
-import {Provider} from "react-redux";
-import {store} from "./redux/store/store";
+import {Provider, useSelector} from "react-redux";
+import {RootState, store} from "./redux/store/store";
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
-	const [popout, setPopout] = useState<any>(<ScreenSpinner size='large' />);
+	const user = useSelector((state:RootState) => state.user)
 
 	useAppVkConnection()
 	useGetUserInfo()
@@ -22,22 +21,19 @@ const App = () => {
 	};
 
 	return (
-		<Provider store={store}>
 			<ConfigProvider>
 				<AdaptivityProvider>
 					<AppRoot>
-						<SplitLayout popout={popout}>
+						<SplitLayout popout={user.id ? null : <ScreenSpinner size='large' />}>
 							<SplitCol>
 								<View activePanel={activePanel}>
 									<Home id='home' go={go} />
-									<Persik id='persik' go={go} />
 								</View>
 							</SplitCol>
 						</SplitLayout>
 					</AppRoot>
 				</AdaptivityProvider>
 			</ConfigProvider>
-		</Provider>
 	);
 }
 

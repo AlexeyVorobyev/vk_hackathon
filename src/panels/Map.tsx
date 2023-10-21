@@ -9,7 +9,7 @@ interface IProps {
 	go:any
 }
 
-const Persik:FC<IProps> = ({
+const Map:FC<IProps> = ({
 							id,
 							go
 						   }) => (
@@ -18,9 +18,4 @@ const Persik:FC<IProps> = ({
 	</Panel>
 );
 
-Persik.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-};
-
-export default Persik;
+export default Map;

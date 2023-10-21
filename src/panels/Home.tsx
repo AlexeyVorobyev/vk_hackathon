@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
 import {useSelector} from "react-redux";
 import {RootState} from "../redux/store/store";
+import {UserState} from "../redux/store/user/user.slice";
 
 const Home:FC<any> = ({ id, go}) => {
 

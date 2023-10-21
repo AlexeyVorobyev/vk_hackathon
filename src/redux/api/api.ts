@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {useAuthRefreshMutation} from "./auth.api";
 import {getTokens} from "../../utils/getAuthToken";
+import {RefreshPayload, RefreshResponse} from "./types/auth";
 
 const disabledAuthTokenEndpoints = [
     'authSignUp','authRefresh','authLogin'
@@ -35,5 +35,18 @@ export const api = createApi({
             else return headers
         }
     }),
-    endpoints: () => ({})
+    endpoints: (builder) => ({
+        authRefresh: builder.mutation<RefreshResponse,RefreshPayload>({
+            query: (body) => ({
+                url:`/api/auth/refresh`,
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body
+            }),
+        }),
+    })
 })
+
+const {useAuthRefreshMutation} = api
