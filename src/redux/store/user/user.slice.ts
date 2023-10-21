@@ -25,7 +25,7 @@ export interface UserState {
 
 export const userSlice = createSlice({
     name:'user',
-    initialState:{is_auth:true} as UserState,
+    initialState:{is_auth:false} as UserState,
     reducers: {
         setLogin: (state,{payload}:{payload:boolean}) => {
             state.is_auth = payload

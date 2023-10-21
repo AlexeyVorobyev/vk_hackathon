@@ -18,7 +18,7 @@ export const authApi = api.injectEndpoints({
         // }),
         authLogin: builder.mutation<LoginResponse,GetLaunchParamsResponse>({
             query: (body) => ({
-                url:`/api/auth/login`,
+                url:`/api/auth/vk/login`,
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json'

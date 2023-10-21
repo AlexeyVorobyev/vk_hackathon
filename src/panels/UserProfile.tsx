@@ -38,7 +38,11 @@ const UserProfile:FC<IProps> = ({
 				<Cell before={<Icon28UserStarOutline />} expandable>Избранное</Cell>
 				<Cell before={<Icon28BillheadOutline />} expandable>Расчеты</Cell>
 				<Cell before={<Icon28HelpOutline />} expandable>Тех. поддержка</Cell>
-				<Cell before={<Icon28TrainOutline />} expandable>Достижения</Cell>
+				<Cell
+					before={<Icon28TrainOutline />}
+					expandable
+					onClick={() => setActivePanel('achievements')}
+				>Достижения</Cell>
 				<Cell before={<Icon28CoinsOutline />} expandable>Потратить баллы</Cell>
 			</Group>
 

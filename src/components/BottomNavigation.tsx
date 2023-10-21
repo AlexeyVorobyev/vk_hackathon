@@ -1,6 +1,18 @@
 import React, {CSSProperties, FC, useState} from "react";
 import {Icon24Home, Icon24User, Icon28CarOutline, Icon28Users} from "@vkontakte/icons";
 import {Button, useAppearance} from "@vkontakte/vkui";
+import {useRouter} from "@happysanta/router";
+
+export const PAGE_HOME = '/';
+export const PAGE_ACHIEVEMENTS = '/achievements'
+export const PAGE_MAP = '/map'
+export const PAGE_USERPROFILE = '/userprofile'
+
+export const PANEL_HOME = 'panel_home';
+export const PANEL_ACHIEVEMENTS = '/panel_achievements'
+export const PANEL_MAP = '/panel_map'
+export const PANEL_USERPROFILE = '/panel_userprofile'
+export const VIEW_HOME = '/view_home';
 
 const selectedButtonStyle = {
     width: '45px',
@@ -19,7 +31,7 @@ const selectedIconStyle = {
 };
 
 const icons = [<Icon24Home/>, <Icon28CarOutline/>, <Icon28Users/>, <Icon24User/>];
-const iconLinks = ['home','map','','cabinet']
+const iconLinks = [PAGE_HOME,PAGE_MAP,'',PAGE_USERPROFILE]
 
 interface IProps {
     setActivePanel: React.Dispatch<React.SetStateAction<string>>
@@ -39,6 +51,8 @@ const BottomNavigation:FC<IProps> = ({
         padding: '8px 0',
     };
 
+    const router = useRouter()
+
     return (
         <div style={bottomNavStyle}>
             {icons.map((IconElement, index) => (
@@ -47,7 +61,7 @@ const BottomNavigation:FC<IProps> = ({
                     style={index === selectedButton ? selectedButtonStyle : notSelectedButtonStyle}
                     onClick={() => {
                         setSelectedButton(index)
-                        setActivePanel(iconLinks[index])
+                        router.pushPage(iconLinks[index])
                     }}
                 >
                     {React.cloneElement(IconElement, { style: index === selectedButton ? selectedIconStyle as CSSProperties : undefined })}
