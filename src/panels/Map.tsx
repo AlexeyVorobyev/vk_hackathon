@@ -15,14 +15,14 @@ import {Icon12BookmarkOutline, Icon28StorefrontOutline} from '@vkontakte/icons';
 
 const cards = [
     {
-        url: "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
+        url: "https://irs1.4sqi.net/img/general/original/42178743_ZYdO0rub7Yux9at6VMsg7UlZnYowXX_0EVV9bw4v6Rw.jpg",
         name: "Карточка 1",
         price: 50,
         length: 45,
         type: "restaurant"
     },
     {
-        url: "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
+        url: "https://irs1.4sqi.net/img/general/original/42178743_ZYdO0rub7Yux9at6VMsg7UlZnYowXX_0EVV9bw4v6Rw.jpg",
         name: "Карточка 2",
         price: 80,
         length: 70,

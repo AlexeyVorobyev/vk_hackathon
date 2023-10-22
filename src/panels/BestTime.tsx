@@ -75,13 +75,13 @@ const BestTime: FC<{ id: string }> = ({id}) => {
 
     const cards = [
         {
-            url: "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
+            url: "https://naytiparu.ru/img/mesta/mesta2349_1630462809.png",
             name: "Карточка 1",
             price: 50,
             length: 45
         },
         {
-            url: "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
+            url: "https://eda.yandex/images/1380157/3e6cc4c66a95d8c4b6629974ae207006-1100x825.jpg",
             name: "Карточка 2",
             price: 80,
             length: 70
@@ -125,12 +125,12 @@ const BestTime: FC<{ id: string }> = ({id}) => {
                 <Cell
                     before={<Icon28Users3Outline/>}
                 >
-                    Среднее кол-во людей: Дофига
+                    Среднее кол-во людей: 150
                 </Cell>
                 <Cell
                     before={<Icon28LocationMapOutline/>}
                 >
-                    Предстоящие экскурсии: Дофига
+                    Предстоящие экскурсии: 4
                 </Cell>
 
                 <CardGrid size="l" style={verticalCardGridStyle as CSSProperties}>

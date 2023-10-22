@@ -55,9 +55,9 @@ const ImageCard = ({ imageUrl, price, length, name,card }) => {
         >
             <div style={imageCardStyle}>
                 {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
-                <Title level={'1'} style={{position:'relative', color:"#fff"}}>{name}</Title>
-                <Title level={'2'} style={{position:'relative', color:"#fff"}}>Цена: {price} ₽</Title>
-                <Title level={'2'} style={{position:'relative', color:"#fff"}}>Длина маршрута: {length} км</Title>
+                <Title level={'2'} style={{position:'relative', color:"#fff"}}>{name}</Title>
+                <Title level={'3'} style={{position:'relative', color:"#fff"}}>Цена: {price} ₽</Title>
+                <Title level={'3'} style={{position:'relative', color:"#fff"}}>Длина маршрута: {length} км</Title>
             </div>
         </Card>
     );

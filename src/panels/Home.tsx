@@ -1,5 +1,17 @@
-import React, {CSSProperties, FC} from 'react';
-import {View, Panel, Gallery, PanelHeader, Group, CardGrid, Header, Button, useAppearance} from '@vkontakte/vkui';
+import React, {CSSProperties, FC, useEffect, useState} from 'react';
+import {
+    View,
+    Panel,
+    Gallery,
+    PanelHeader,
+    Group,
+    CardGrid,
+    Header,
+    Button,
+    useAppearance,
+    Card,
+    Title
+} from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import {
     Icon28PlaneOutline,
@@ -10,12 +22,12 @@ import {
     Icon28Clock
 } from '@vkontakte/icons';
 import {BOTTOM_PADDING_GLOBAL} from "../globalVars";
-
-const imageStyleInCard = {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-};
+import bridge from "@vkontakte/vk-bridge";
+import {BASE_HELP_IMAGE} from "../img/base";
+import {useRouter} from "@happysanta/router";
+import {useActions} from "../redux/hooks/useActions";
+import {PAGE_BESTTIMES, PAGE_MAP, PAGE_ROUTES, PAGE_SHOP, PAGE_USERPROFILE} from "../index";
+import {mockRoutesData} from "../mock/mockRoutesData";
 
 
 const Slide = ({imageUrl}: { imageUrl: string }) => (
@@ -69,39 +81,51 @@ const verticalCardGridStyle = {
     flexDirection: 'column',
     alignItems: 'center',
 };
-const icons = [
-    <Icon28PlaneOutline/>,
-    <Icon28CompassOutline/>,
-    <Icon28Place/>,
-    <Icon28Attachments/>,
-    <Icon28Story/>,
-    <Icon28Clock/>,
-];
-const cardGridContainerStyle = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-};
+
 const mainContentStyle = {
     paddingBottom: '61px',
 };
 
-
-const ImageCard = ({imageUrl}: { imageUrl: string }) => (
-    <div style={imageCardStyle}>
-        {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties}/> : null}
-    </div>
-);
 const imageCardStyle = {
-    width: '315px',
-    height: '140px',
+    width: '346px',
+    height: '150px',
     flexShrink: 0,
-    borderRadius: '10px',
     boxShadow: '4px 4px 6px 0px rgba(0, 0, 0, 0.25)',
-    overflow: 'hidden',
-    margin: '10px 0',
+    margin: '1px 0',
+    padding:'20px'
 };
+
+const imageStyleInCard = {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    position:'absolute',
+    top:0,
+    left:0,
+} as CSSProperties;
+
+// @ts-ignore
+const ImageCard = ({ imageUrl, price, length, name,card,date }) => {
+
+    const router = useRouter()
+    const {setChosenRoute} = useActions()
+
+    return (
+        <Card
+            style={{borderRadius: '10px',overflow:'hidden'}}
+            onClick={() => {
+                router.pushPage(PAGE_MAP)
+                setChosenRoute(card)
+            }}
+        >
+            <div style={imageCardStyle}>
+                {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
+                <Title level={'2'} style={{position:'relative', color:"#fff"}}>{name}</Title>
+                <Title level={'3'} style={{position:'relative', color:"#fff"}}>Дата: {date}</Title>
+            </div>
+        </Card>
+    );
+}
 
 const customGalleryStyles = {
     height: '200px',
@@ -115,10 +139,6 @@ interface IProps {
 const Home: FC<IProps> = ({
                               id,
                           }) => {
-    const imageUrls = [
-        "https://upload.wikimedia.org/wikipedia/commons/c/c1/DSC07437-%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D0%9A%D1%80%D0%B5%D0%BC%D0%BB%D1%8C.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Grand_Cascade_of_Peterhof_01.jpg/1200px-Grand_Cascade_of_Peterhof_01.jpg"
-    ];
 
     const appearance = useAppearance();
 
@@ -132,49 +152,236 @@ const Home: FC<IProps> = ({
         borderRadius: '10px',
     };
 
+    useEffect(() => {
+        if (!!sessionStorage.getItem('start')) return
+        bridge.send('VKWebAppShowSlidesSheet', {
+            slides: [
+                {
+                    media: {
+                        blob: BASE_HELP_IMAGE,
+                        type: 'image'
+                    },
+                    title: 'Помощь в поиске удобного маршрута',
+                    subtitle: 'Расскажите нам о своих предпочтениях и планах, мы поможем вам построить самый удобный маршрут!'
+                },
+                {
+                    media: {
+                        blob: BASE_HELP_IMAGE,
+                        type: 'image'
+                    },
+                    title: 'Создание красочных фотографий',
+                    subtitle: 'Покажите нам место, где вы хотите сфотографироваться и наш помощник предложит вам, как лучше это сделать!'
+                },
+                {
+                    media: {
+                        blob: BASE_HELP_IMAGE,
+                        type: 'image'
+                    },
+                    title: 'Рекомендации к поездке',
+                    subtitle: 'Не знаете что взять с собой или не уверены? Расскажите, куда вы едете и мы подскажем вам, что лучше собрать!'
+                }
+
+            ]})
+            .then((data) => {
+                if (data.result) {
+                    // Слайды показаны
+                }
+            })
+            .catch((error) => {
+                // Ошибка
+                console.log(error);
+            });
+        sessionStorage.setItem('start','1')
+    },[])
+
+    const router = useRouter()
+
     return (
         <Panel id={id} style={{paddingBottom:BOTTOM_PADDING_GLOBAL}}>
             <PanelHeader>Главная</PanelHeader>
 
+            <Group style={{
+                display:''
+            }}>
+
+            </Group>
+
             <Group>
                 <Gallery slideWidth="90%" bullets="dark" style={customGalleryStyles}>
-                    <Slide
-                        imageUrl="https://upload.wikimedia.org/wikipedia/commons/c/c1/DSC07437-%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D0%9A%D1%80%D0%B5%D0%BC%D0%BB%D1%8C.jpg"/>
-                    <Slide imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Grand_Cascade_of_Peterhof_01.jpg/1200px-Grand_Cascade_of_Peterhof_01.jpg"/>
-                    <Slide imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Grand_Cascade_of_Peterhof_01.jpg/1200px-Grand_Cascade_of_Peterhof_01.jpg"/>
+                    {mockRoutesData.map((card,index) => {
+                        return (
+                            <ImageCard
+                                key={index} imageUrl={card.image}
+                                price={card.price} length={card.length}
+                                name={card.name}
+                                card={card}
+                                date={'02.03.23 - 14.03.23'}
+                            />
+                        )
+                    })}
                 </Gallery>
             </Group>
-            <Group mode="plain" style={mainContentStyle}>
-                <CardGrid size="m" style={{...cardGridContainerStyle, display: 'flex', flexWrap: 'wrap'}}>
-                    {[...Array(6)].map((_, index) => (
-                        <Button
-                            key={index}
-                            style={buttonStyle}
-                            onClick={() => { /*код обработки нажатия */
-                            }}
-                        >
-                            <ShadowBlock icon={icons[index % icons.length]}/>
-                        </Button>
-                    ))}
-                </CardGrid>
 
+            <Group>
+                <div style={buttonContainerStyle}>
+                    {/* Первая кнопка с картинкой слева */}
+                    <Button
+                        style={buttonStyle1}
+                        onClick={() => {
+                            bridge.send('VKWebAppShowWallPostBox', {
+                                message: 'Я использую классное приложение для путешествий с друзьями! Присоединяйся и ты!',
+                                attachments: 'https://vk.com/app51775552_268110017'
+                            })
+                                .then((data) => {
+                                    if (data.post_id) {
+                                        // Запись размещена
+                                    }
+                                })
+                                .catch((error) => {
+                                    // Ошибка
+                                    console.log(error);
+                                });
+                            router.pushPage(PAGE_USERPROFILE)
+                        }}
+                    >
+                        <div style={buttonContentWrapper}>
+                            <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1efokIIGV99in0vFS68JDeklRvvFtiNnM" alt="" style={buttonImageStyle} />
+                            <span style={buttonText}>Пригласи своих друзей в путешествие!</span>
+                        </div>
+                    </Button>
+
+                    {/* Вторая кнопка без картинки */}
+                    <Button
+                        style={buttonStyle2}
+                        onClick={() => {
+                            router.pushPage(PAGE_SHOP)
+                        }}
+                    >
+                        <span style={buttonText}>У вас на счету: 250⚡️</span>
+                    </Button>
+                </div>
+
+                <div style={buttonContainerStyle}>
+                    {/* Третья кнопка с картинкой справа */}
+                    <Button
+                        style={buttonStyle3}
+                        onClick={() => {
+                            router.pushPage(PAGE_SHOP)
+                        }}
+                    >
+                        <div style={buttonContentWrapper}>
+                            <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1jQAjzgNfB4z9jQTS6voARnEtgw99rYLo" alt="" style={buttonImageStyle} />
+                            <span style={buttonText}>У вас остался один купон, успейте его потратить!</span>
+                        </div>
+                    </Button>
+
+                    {/* Четвертая кнопка с картинкой справа */}
+                    <Button
+                        style={buttonStyle4}
+                        onClick={() => {
+                            router.pushPage(PAGE_ROUTES)
+                        }}
+                    >
+                        <div style={buttonContentWrapper}>
+                            <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1C-kMtGL5jojLH_yLFQCJuUclZVV6HVcO" alt="" style={buttonImageStyle} />
+                            <span style={buttonText}>Новые путешествия уже ждут вас</span>
+                        </div>
+                    </Button>
+                </div>
+
+            </Group>
+
+            <Group mode="plain" style={mainContentStyle}>
                 <Header mode="secondary" style={{fontSize: '25px'}}>Актуальные события</Header>
 
-                <CardGrid size="m" style={verticalCardGridStyle as CSSProperties}>
-                    {imageUrls.map((url, index) => (
-                        <ImageCard key={index} imageUrl={url}/>
-                    ))}
+                <CardGrid size="l" style={verticalCardGridStyle as CSSProperties}>
+                    {mockRoutesData.map((card,index) => {
+                        return (
+                            <ImageCard
+                                key={index} imageUrl={card.image}
+                                price={card.price} length={card.length}
+                                name={card.name}
+                                card={card}
+                                date={'02.03.23 - 14.03.23'}
+                            />
+                        )
+                    })}
                 </CardGrid>
                 <Header mode="secondary" style={{fontSize: '25px'}}>Маршруты друзей</Header>
 
-                <CardGrid size="m" style={verticalCardGridStyle as CSSProperties}>
-                    {imageUrls.map((url, index) => (
-                        <ImageCard key={index} imageUrl={url}/>
-                    ))}
+                <CardGrid size="l" style={verticalCardGridStyle as CSSProperties}>
+                    {mockRoutesData.map((card,index) => {
+                        return (
+                            <ImageCard
+                                key={index} imageUrl={card.image}
+                                price={card.price} length={card.length}
+                                name={card.name}
+                                card={card}
+                                date={'02.03.23 - 14.03.23'}
+                            />
+                        )
+                    })}
                 </CardGrid>
             </Group>
         </Panel>
     );
 };
 
+const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '10px',
+} as CSSProperties;
+const buttonText = {
+    whiteSpace: 'normal',
+    maxWidth: '60%'
+} as CSSProperties;
+const buttonStyle1 = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: '10px',
+
+    width: '65%',
+    height: '100px',
+    flexShrink: 0,
+    borderRadius: '10px',
+    background: '#2688EB',
+    color: 'white',
+} as CSSProperties;
+
+const buttonContentWrapper = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+} as CSSProperties;
+const buttonStyle2 = {
+    width: '33%',
+    height: '100px',
+    borderRadius: '10px',
+    background: '#3CB2EE',
+    color: 'white',
+} as CSSProperties;
+const buttonImageStyle = {
+    width: '36%',
+    marginRight: '10px',
+} as CSSProperties;
+
+const buttonStyle3 = {
+    width: '48%',
+    height: '100px',
+    flexShrink: 0,
+    borderRadius: '10px',
+    background: '#BBE5FF',
+    color: 'white',
+} as CSSProperties;
+
+const buttonStyle4 = {
+    width: '50%',
+    height: '100px',
+    borderRadius: '10px',
+    background: '#3CB2EE',
+    color: 'white',
+} as CSSProperties;
 export default Home;
