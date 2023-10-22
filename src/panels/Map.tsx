@@ -155,10 +155,10 @@ const Map: FC<IProps> = ({
         map.on('load', function () {
 
             const paramsConstructRoute = {
-                locations: pathLine.features.map((item) => {
+                locations: mapState.chosenRoute?.places.map((item) => {
                     return {
-                        lat: item.geometry.coordinates[0][0],
-                        lon: item.geometry.coordinates[0][1]
+                        lat: item.coordinates[1],
+                        lon: item.coordinates[0]
                     }
                 }),
                 costing: "auto",
@@ -172,6 +172,8 @@ const Map: FC<IProps> = ({
                 units: "kilometers",
                 id: 'some_route'
             } as IConstructRoutePayload
+
+            console.log(paramsConstructRoute,'test')
 
             createRoute(paramsConstructRoute)
                 .then((response) => {
@@ -230,7 +232,7 @@ const Map: FC<IProps> = ({
     );
 
     return (
-        <Panel id={id} style={{paddingBottom: BOTTOM_PADDING_GLOBAL}}>
+        <Panel id={id} style={{paddingBottom: BOTTOM_PADDING_GLOBAL, height: '100vh'}}>
             <PanelHeader before={<PanelHeaderBack onClick={() => router.pushPage(PAGE_HOME)}/>}>Карта</PanelHeader>
 
             <div id="map" style={{width: '100vw', height: '100dvh'}}/>

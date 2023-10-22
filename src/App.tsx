@@ -23,17 +23,21 @@ import AchievementsPage from "./panels/Achievements";
 import Achievements from "./panels/Achievements";
 import {useLocation} from "@happysanta/router";
 import {
-	PANEL_ACHIEVEMENTS,
+	PAGE_BESTTIMES,
+	PANEL_ACHIEVEMENTS, PANEL_AUDIO, PANEL_BESTTIMES,
 	PANEL_CARDS,
 	PANEL_HOME,
 	PANEL_MAP, PANEL_ROUTES,
 	PANEL_SHOP,
-	PANEL_USERPROFILE,
+	PANEL_USERPROFILE, PANEL_WHATWAS,
 	VIEW_HOME
 } from "./index";
 import Shop from "./panels/Shop";
 import Cards from "./panels/Cards";
 import Routes from "./panels/Routes";
+import WhatWas from "./panels/WhatWas";
+import BestTime from "./panels/BestTime";
+import AudioGuide from "./panels/AudioGuide";
 
 const App = () => {
 	const user = useSelector((state:RootState) => state.user)
@@ -57,6 +61,9 @@ const App = () => {
 								<Shop id={PANEL_SHOP}/>
 								<Cards id={PANEL_CARDS}/>
 								<Routes id={PANEL_ROUTES}/>
+								<WhatWas id={PANEL_WHATWAS}/>
+								<BestTime id={PANEL_BESTTIMES}/>
+								<AudioGuide id={PANEL_AUDIO}/>
 							</View>
 							<FixedLayout vertical="bottom">
 								<BottomNavigation/>

@@ -116,8 +116,8 @@ const Home: FC<IProps> = ({
                               id,
                           }) => {
     const imageUrls = [
-        "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
-        "https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c1/DSC07437-%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D0%9A%D1%80%D0%B5%D0%BC%D0%BB%D1%8C.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Grand_Cascade_of_Peterhof_01.jpg/1200px-Grand_Cascade_of_Peterhof_01.jpg"
     ];
 
     const appearance = useAppearance();
@@ -139,9 +139,9 @@ const Home: FC<IProps> = ({
             <Group>
                 <Gallery slideWidth="90%" bullets="dark" style={customGalleryStyles}>
                     <Slide
-                        imageUrl="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663155867_60-mykaleidoscope-ru-p-yezhik-veselii-krasivo-61.jpg"/>
-                    <Slide imageUrl="https://pichold.ru/wp-content/uploads/2018/10/s1200-2-2.jpg"/>
-                    <Slide imageUrl="https://uprostim.com/wp-content/uploads/2021/02/image004-49.jpg"/>
+                        imageUrl="https://upload.wikimedia.org/wikipedia/commons/c/c1/DSC07437-%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D0%9A%D1%80%D0%B5%D0%BC%D0%BB%D1%8C.jpg"/>
+                    <Slide imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Grand_Cascade_of_Peterhof_01.jpg/1200px-Grand_Cascade_of_Peterhof_01.jpg"/>
+                    <Slide imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Grand_Cascade_of_Peterhof_01.jpg/1200px-Grand_Cascade_of_Peterhof_01.jpg"/>
                 </Gallery>
             </Group>
             <Group mode="plain" style={mainContentStyle}>

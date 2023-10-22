@@ -68,7 +68,7 @@ const Cards = ({id}:{id:string}) => {
     const router = useRouter()
 
     return (
-        <Panel id={id} style={{paddingBottom:BOTTOM_PADDING_GLOBAL}}>
+        <Panel id={id} style={{paddingBottom: BOTTOM_PADDING_GLOBAL, height: '100vh'}}>
             <PanelHeader
                 before={<PanelHeaderBack onClick={() => router.pushPage(PAGE_USERPROFILE)}/>}
             >VK pay</PanelHeader>
