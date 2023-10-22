@@ -1,9 +1,11 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {reducer as userReducer} from "./user/user.slice";
+import {reducer as mapReducer} from "./map/map.slice";
 import {api} from "../api/api";
 
 const reducers = combineReducers({
     user:userReducer,
+    map:mapReducer,
     [api.reducerPath]: api.reducer
 })
 export const store = configureStore({

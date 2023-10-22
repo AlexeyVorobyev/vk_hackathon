@@ -24,12 +24,12 @@ const UserProfile:FC<IProps> = ({
 	const router = useRouter()
 
 	return (
-		<Panel id={id} style={{paddingBottom:BOTTOM_PADDING_GLOBAL}}>
+		<Panel id={id} style={{paddingBottom:BOTTOM_PADDING_GLOBAL, height:'100vh'}}>
 			<PanelHeader before={<PanelHeaderBack onClick={() => router.pushPage(PAGE_HOME)}/>}>Профиль</PanelHeader>
 			<Group>
-				<Div style={{ alignItems: 'center' }}>
+				<Div style={{ alignItems: 'center', display:'flex', }}>
 					<Avatar size={96} src={user.photo_200} />
-					<Header mode="secondary">{user.first_name} {user.last_name}</Header>
+					<Header mode="primary">{user.first_name} {user.last_name}</Header>
 				</Div>
 			</Group>
 

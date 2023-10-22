@@ -45,7 +45,7 @@ const App = () => {
 	const location = useLocation()
 
 	return (
-			<ConfigProvider>
+			<ConfigProvider appearance={'light'}>
 				<AdaptivityProvider>
 					<AppRoot>
 						<SplitLayout popout={user.loaded && user.is_auth ? undefined : <ScreenSpinner size='large' />}>

@@ -20,9 +20,7 @@ const imageCardStyle = {
     width: '346px',
     height: '150px',
     flexShrink: 0,
-    borderRadius: '10px',
     boxShadow: '4px 4px 6px 0px rgba(0, 0, 0, 0.25)',
-    overflow: 'hidden',
     margin: '1px 0',
     padding:'20px'
 };
@@ -41,11 +39,12 @@ const verticalCardGridStyle = {
     alignItems: 'center',
 };
 // @ts-ignore
-const ImageCard = ({ imageUrl, price, length }) => (
-    <Card>
+const ImageCard = ({ imageUrl, price, length, name }) => (
+    <Card style={{borderRadius: '10px',overflow:'hidden'}}>
         <div style={imageCardStyle}>
             {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
-            <Title level={'1'} style={{position:'relative', color:"#fff"}}>Цена: {price} ₽</Title>
+            <Title level={'1'} style={{position:'relative', color:"#fff"}}>{name}</Title>
+            <Title level={'2'} style={{position:'relative', color:"#fff"}}>Цена: {price} ₽</Title>
             <Title level={'2'} style={{position:'relative', color:"#fff"}}>Длина маршрута: {length} км</Title>
         </div>
     </Card>
@@ -95,7 +94,10 @@ const Routes = ({id}:{id:string}) => {
                 <Header mode="secondary">Актуальные события</Header>
                 <CardGrid size="l" style={verticalCardGridStyle as CSSProperties}>
                     {filteredCards.map((card, index) => (
-                        <ImageCard key={index} imageUrl={card.image} price={card.price} length={card.length} />
+                        <ImageCard
+                            key={index} imageUrl={card.image}
+                            price={card.price} length={card.length}
+                            name={card.name}/>
                     ))}
                 </CardGrid>
             </Div>

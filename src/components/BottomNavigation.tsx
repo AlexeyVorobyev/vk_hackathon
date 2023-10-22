@@ -23,14 +23,16 @@ const BottomNavigation:FC = () => {
         background: appearance === 'light' ? "#BBE5FF" : "#444",
         padding: '20px 52px 20px 52px',
         borderRadius: '37px 37px 0 0'
-    };
+    } as CSSProperties;
 
     const selectedButtonStyle = {
         borderRadius: '10px',
         width:'45px',
         height:'45px',
-        background: appearance === 'light' ? "#FFF" : "#FFF",
-    };
+        flexShrink:0,
+        boxSizing:'border-box',
+        background: appearance === 'light' ? "#FFF" : "#ccc",
+    } as CSSProperties;
 
     const notSelectedButtonStyle = {
         width:'45px',
@@ -65,7 +67,7 @@ const BottomNavigation:FC = () => {
                         setSelectedButton(index)
                         router.pushPage(iconLinks[index])
                     }}
-                    before={<IconElement style={index === selectedButton ? selectedIconStyle as CSSProperties : undefined }/>}
+                    before={<IconElement style={index === selectedButton ? selectedIconStyle as CSSProperties : iconStyle }/>}
                 >
                 </Button>
             ))}

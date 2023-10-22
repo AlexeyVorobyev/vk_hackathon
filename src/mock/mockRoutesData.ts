@@ -8,7 +8,7 @@ interface IPlaceData {
     image?:string
 }
 
-interface IRouteData {
+export interface IRouteData {
     name:string,
     price: number,
     length: number
@@ -18,7 +18,7 @@ interface IRouteData {
 
 export const mockRoutesData:IRouteData[] = [
     {
-        name: "Маршрут №1 'Золотое кольцо России'",
+        name: "Золотое кольцо России",
         price: 500,
         length: 432,
         image:one_one_png,
@@ -43,7 +43,7 @@ export const mockRoutesData:IRouteData[] = [
         ]
     },
     {
-        name: "Маршрут №2 'Ростов Великий — дыхание средневековья'",
+        name: "Ростов Великий — дыхание средневековья",
         price: 5020,
         length: 202,
         image:one_two_png,
@@ -68,7 +68,7 @@ export const mockRoutesData:IRouteData[] = [
         ]
     },
     {
-        name: "Маршрут №3 'Старый и новый Ростов-на-Дону'",
+        name: "Старый и новый Ростов-на-Дону",
         price: 300,
         length: 1032,
         image:one_two_png,

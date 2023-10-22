@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import mmrgl from 'mmr-gl';
 
@@ -6,6 +6,9 @@ import {Panel, PanelHeader, PanelHeaderBack} from '@vkontakte/vkui';
 import {useRouter} from "@happysanta/router";
 import {PAGE_HOME} from "../index";
 import {BOTTOM_PADDING_GLOBAL} from "../globalVars";
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/store/store";
+import {IRouteData} from "../mock/mockRoutesData";
 
 
 interface IProps {
@@ -17,6 +20,14 @@ const Map: FC<IProps> = ({
                          }) => {
 
     const router = useRouter()
+
+    const mapState = useSelector((state:RootState) => state.map)
+
+    useEffect(() => {
+        if (mapState.chosenRoute) {
+            console.log('dasd')
+        }
+    },[mapState.chosenRoute])
 
     useEffect(() => {
         mmrgl.accessToken = '25d8d6a2246d7544607224e6b41fc8019a010d3ba73f85d03ed8ffda25b97205';
