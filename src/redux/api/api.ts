@@ -3,13 +3,12 @@ import {getTokens} from "../../utils/getAuthToken";
 import {RefreshPayload, RefreshResponse} from "./types/auth";
 
 const disabledAuthTokenEndpoints = [
-    'authSignUp','authRefresh','authLogin'
+    'authSignUp','authRefresh','authLogin','constructRoute'
 ]
 export const api = createApi({
     reducerPath:'api',
     tagTypes:['tag1','tag2'],
     baseQuery:fetchBaseQuery({
-        baseUrl:process.env.REACT_APP_API_HOST,
         prepareHeaders: (headers,api) => {
             if (!disabledAuthTokenEndpoints.includes(api.endpoint)) {
                 if (Number(localStorage.getItem('accessToken')) < new Date().getTime()) {
@@ -38,7 +37,7 @@ export const api = createApi({
     endpoints: (builder) => ({
         authRefresh: builder.mutation<RefreshResponse,RefreshPayload>({
             query: (body) => ({
-                url:`/api/auth/refresh`,
+                url:`${process.env.REACT_APP_API_HOST}/api/auth/refresh`,
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json'

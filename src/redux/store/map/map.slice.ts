@@ -5,7 +5,7 @@ export interface MapState {
 }
 
 const initialState = {
-    chosenRoute = null
+    chosenRoute:null
 } as MapState
 
 export const mapSlice = createSlice({

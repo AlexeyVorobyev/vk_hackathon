@@ -12,9 +12,10 @@ import {
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import {BOTTOM_PADDING_GLOBAL} from "../globalVars";
-import {PAGE_USERPROFILE} from "../index";
+import {PAGE_MAP, PAGE_USERPROFILE} from "../index";
 import {useRouter} from "@happysanta/router";
 import {mockRoutesData} from "../mock/mockRoutesData";
+import {useActions} from "../redux/hooks/useActions";
 
 const imageCardStyle = {
     width: '346px',
@@ -39,16 +40,28 @@ const verticalCardGridStyle = {
     alignItems: 'center',
 };
 // @ts-ignore
-const ImageCard = ({ imageUrl, price, length, name }) => (
-    <Card style={{borderRadius: '10px',overflow:'hidden'}}>
-        <div style={imageCardStyle}>
-            {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
-            <Title level={'1'} style={{position:'relative', color:"#fff"}}>{name}</Title>
-            <Title level={'2'} style={{position:'relative', color:"#fff"}}>Цена: {price} ₽</Title>
-            <Title level={'2'} style={{position:'relative', color:"#fff"}}>Длина маршрута: {length} км</Title>
-        </div>
-    </Card>
-);
+const ImageCard = ({ imageUrl, price, length, name,card }) => {
+
+    const router = useRouter()
+    const {setChosenRoute} = useActions()
+
+    return (
+        <Card
+            style={{borderRadius: '10px',overflow:'hidden'}}
+            onClick={() => {
+                router.pushPage(PAGE_MAP)
+                setChosenRoute(card)
+            }}
+        >
+            <div style={imageCardStyle}>
+                {imageUrl ? <img src={imageUrl} alt="" style={imageStyleInCard as CSSProperties} /> : null}
+                <Title level={'1'} style={{position:'relative', color:"#fff"}}>{name}</Title>
+                <Title level={'2'} style={{position:'relative', color:"#fff"}}>Цена: {price} ₽</Title>
+                <Title level={'2'} style={{position:'relative', color:"#fff"}}>Длина маршрута: {length} км</Title>
+            </div>
+        </Card>
+    );
+}
 
 
 const Routes = ({id}:{id:string}) => {
@@ -71,6 +84,8 @@ const Routes = ({id}:{id:string}) => {
             <PanelHeader
                 before={<PanelHeaderBack onClick={() => router.pushPage(PAGE_USERPROFILE)}/>}
             >Актуальные маршруты</PanelHeader>
+
+
 
             <Search value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
 
@@ -97,7 +112,9 @@ const Routes = ({id}:{id:string}) => {
                         <ImageCard
                             key={index} imageUrl={card.image}
                             price={card.price} length={card.length}
-                            name={card.name}/>
+                            name={card.name}
+                            card={card}
+                        />
                     ))}
                 </CardGrid>
             </Div>
