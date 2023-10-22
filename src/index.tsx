@@ -11,6 +11,7 @@ export const PAGE_MAP = '/map'
 export const PAGE_USERPROFILE = '/userprofile'
 export const PAGE_SHOP = '/shop'
 export const PAGE_CARDS = '/cards'
+export const PAGE_ROUTES = '/routes'
 
 
 export const PANEL_HOME = 'panel_home';
@@ -19,6 +20,7 @@ export const PANEL_MAP = '/panel_map'
 export const PANEL_USERPROFILE = '/panel_userprofile'
 export const PANEL_SHOP = '/panel_shop'
 export const PANEL_CARDS = '/panel_cards'
+export const PANEL_ROUTES = '/panel_routes'
 
 export const VIEW_HOME = '/view_home';
 
@@ -29,7 +31,8 @@ const routes = {
     [PAGE_MAP]: new Page(PANEL_MAP, VIEW_HOME),
     [PAGE_USERPROFILE]: new Page(PANEL_USERPROFILE, VIEW_HOME),
     [PAGE_SHOP]: new Page(PANEL_SHOP, VIEW_HOME),
-    [PAGE_CARDS]: new Page(PANEL_CARDS, VIEW_HOME)
+    [PAGE_CARDS]: new Page(PANEL_CARDS, VIEW_HOME),
+    [PAGE_ROUTES]: new Page(PANEL_ROUTES, VIEW_HOME)
 }
 
 const router = new Router(routes)
@@ -41,6 +44,7 @@ ReactDOM.render(
             <App/>
         </RouterContext.Provider>
     </Provider>, document.getElementById("root"));
+
 if (process.env.NODE_ENV === "development") {
     import("./eruda").then(({default: eruda}) => {
     }); //runtime download

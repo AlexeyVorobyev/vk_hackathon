@@ -3,19 +3,13 @@ import {Icon24Home, Icon24User, Icon28CarOutline, Icon28Users} from "@vkontakte/
 import {Button, useAppearance} from "@vkontakte/vkui";
 import {useRouter} from "@happysanta/router";
 
-export const PAGE_HOME = '/';
-export const PAGE_ACHIEVEMENTS = '/achievements'
-export const PAGE_MAP = '/map'
-export const PAGE_USERPROFILE = '/userprofile'
-
-export const PANEL_HOME = 'panel_home';
-export const PANEL_ACHIEVEMENTS = '/panel_achievements'
-export const PANEL_MAP = '/panel_map'
-export const PANEL_USERPROFILE = '/panel_userprofile'
-export const VIEW_HOME = '/view_home';
+const PAGE_HOME = '/';
+const PAGE_MAP = '/map'
+const PAGE_USERPROFILE = '/userprofile'
+const PAGE_ROUTES = '/routes'
 
 const icons = [Icon24Home, Icon28CarOutline, Icon28Users, Icon24User];
-const iconLinks = [PAGE_HOME,PAGE_MAP,PAGE_HOME,PAGE_USERPROFILE]
+const iconLinks = [PAGE_HOME,PAGE_MAP,PAGE_ROUTES,PAGE_USERPROFILE]
 
 
 const BottomNavigation:FC = () => {

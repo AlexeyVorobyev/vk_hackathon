@@ -26,13 +26,14 @@ import {
 	PANEL_ACHIEVEMENTS,
 	PANEL_CARDS,
 	PANEL_HOME,
-	PANEL_MAP,
+	PANEL_MAP, PANEL_ROUTES,
 	PANEL_SHOP,
 	PANEL_USERPROFILE,
 	VIEW_HOME
 } from "./index";
 import Shop from "./panels/Shop";
 import Cards from "./panels/Cards";
+import Routes from "./panels/Routes";
 
 const App = () => {
 	const user = useSelector((state:RootState) => state.user)
@@ -55,6 +56,7 @@ const App = () => {
 								<Achievements id={PANEL_ACHIEVEMENTS}/>
 								<Shop id={PANEL_SHOP}/>
 								<Cards id={PANEL_CARDS}/>
+								<Routes id={PANEL_ROUTES}/>
 							</View>
 							<FixedLayout vertical="bottom">
 								<BottomNavigation/>
